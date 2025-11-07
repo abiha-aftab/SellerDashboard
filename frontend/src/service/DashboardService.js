@@ -5,6 +5,6 @@ export async function fetchSummaryFromAPI(sellerId) {
     const response = await axios.get(`/api/seller/${sellerId}/summary`)
     return response.data
   } catch (error) {
-    throw new Error(error.response?.data?.message || 'Error fetching summary from API')
+    throw new Error(error.response?.data?.message || 'Error fetching summary from API', { cause: error })
   }
 }
