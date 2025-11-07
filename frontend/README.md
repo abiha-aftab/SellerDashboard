@@ -1,5 +1,14 @@
-# Vue 3 + Vite
+# Seller Dashboard client
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Vue 3 + Vite single-page client for the seller metrics API. See the
+[project README](../README.md) for the full setup.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+```bash
+npm ci
+npm run dev      # http://localhost:5173, proxies /api to http://localhost:8080
+npm test         # Vitest + Vue Test Utils (jsdom)
+npm run lint     # ESLint with eslint-plugin-vue
+npm run build    # static bundle in dist/
+```
+
+Set `VITE_API_PROXY_TARGET` to point the dev proxy at a different backend.
