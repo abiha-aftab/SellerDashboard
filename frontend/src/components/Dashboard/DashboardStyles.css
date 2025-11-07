@@ -1,98 +1,165 @@
-/* Container */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 16px;
-  box-sizing: border-box;
-  display: block;
+.dashboard {
+  display: grid;
+  gap: 1.5rem;
 }
 
-/* Label */
-.label {
-  font-size: 1.2rem;
+.picker {
+  display: grid;
+  gap: 0.4rem;
+  max-width: 22rem;
+}
+
+.picker label {
   font-weight: 600;
-  color: #333;
-  margin-bottom: 12px;
-  display: block;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
 }
 
-/* Dropdown */
-.custom-dropdown {
-  width: 100%;
-  padding: 12px 16px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #fff;
-  cursor: pointer;
-  display: inline-block; /* force visibility */
-  min-height: 40px; /* ensures visible height */
-  transition: all 0.3s ease;
+.picker select {
+  font: inherit;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--paper-raised);
+  color: var(--ink);
+  min-height: 44px;
 }
 
-.custom-dropdown:focus {
-  outline: none;
-  border-color: #1e90ff;
-  box-shadow: 0 0 5px rgba(30, 144, 255, 0.3);
+.picker select:focus-visible,
+.link-button:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
 }
 
-/* Content */
-.content {
-  margin-top: 16px;
+.panel {
+  background: var(--paper-raised);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: clamp(1rem, 3vw, 2rem);
+  min-height: 14rem;
 }
 
-/* Loading / Error */
-.loading {
-  color: #1e90ff;
-  font-weight: bold;
-  font-size: 1rem;
+.panel__title {
+  margin: 0 0 1.25rem;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
-.error {
-  color: crimson;
-  font-weight: bold;
-  font-size: 1rem;
+.panel__subtitle {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--ink-soft);
 }
 
-/* Summary Box */
-.summary-box {
-  border: 1px solid #eee;
-  padding: 16px;
-  border-radius: 8px;
-  margin-top: 24px;
-  background-color: #fafafa;
+.placeholder {
+  margin: 0;
+  color: var(--ink-soft);
 }
 
-.summary-box p {
-  font-size: 1.1rem;
-  line-height: 1.5;
+.figures {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0;
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
 }
 
-/* Alerts */
+.figure {
+  padding: 1rem 1rem 1.1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.figure + .figure {
+  border-left: 1px solid var(--rule);
+  padding-left: 1rem;
+}
+
+.figure dt {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+}
+
+.figure dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.figure__hint {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.figure--warn dd {
+  color: var(--warn);
+}
+
 .alerts {
-  background-color: #fff3cd;
-  border: 1px solid #ffeeba;
-  padding: 16px;
-  border-radius: 8px;
-  margin-top: 16px;
+  margin-top: 1.25rem;
+  padding: 0.9rem 1.1rem;
+  border-left: 4px solid var(--warn);
+  background: var(--warn-bg);
+  border-radius: 0 6px 6px 0;
 }
 
-.alert-item {
-  color: darkorange;
+.alerts h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+  color: var(--warn);
+}
+
+.alerts ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.all-clear {
+  margin: 1.25rem 0 0;
+  padding: 0.9rem 1.1rem;
+  border-left: 4px solid var(--ok);
+  background: var(--ok-bg);
+  border-radius: 0 6px 6px 0;
+}
+
+.notice--error {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid var(--error);
+  background: var(--error-bg);
+  border-radius: 0 6px 6px 0;
+}
+
+.link-button {
+  font: inherit;
+  margin-left: 0.5rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
   font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .label { font-size: 1rem; }
-  .custom-dropdown { font-size: 0.9rem; }
-  .summary-box { padding: 12px; }
-  .summary-box p { font-size: 1rem; }
-}
+@media (max-width: 600px) {
+  .figures {
+    grid-template-columns: 1fr;
+  }
 
-@media (max-width: 480px) {
-  .label { font-size: 0.9rem; }
-  .custom-dropdown { font-size: 0.85rem; }
-  .summary-box p { font-size: 0.95rem; }
-  .loading, .error { font-size: 0.9rem; }
+  .figure + .figure {
+    border-left: 0;
+    border-top: 1px solid var(--rule);
+    padding-left: 0;
+  }
 }

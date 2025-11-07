@@ -1,8 +1,11 @@
 <template>
-  <div id="app" style="max-width:900px;margin:40px auto;font-family:Arial, Helvetica, sans-serif">
-    <h1>Seller Dashboard</h1>
+  <main class="shell">
+    <header class="masthead">
+      <h1>Seller Dashboard</h1>
+      <p>Weekly units, revenue and return rate, with alerts when a seller slips.</p>
+    </header>
     <SellerDashboard />
-  </div>
+  </main>
 </template>
 
 <script setup>

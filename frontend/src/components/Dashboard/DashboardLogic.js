@@ -1,31 +1,43 @@
 import { ref } from 'vue'
-import { fetchSummaryFromAPI } from '../../service/DashboardService.js'
+import { fetchSellersFromAPI, fetchSummaryFromAPI } from '../../service/DashboardService.js'
 
 export function useDashboard() {
-  const sellers = ref([
-    { id: 1, name: 'TechZone' },
-    { id: 2, name: 'GadgetHub' },
-    { id: 3, name: 'EcoMart' }
-  ])
+  const sellers = ref([])
+  const sellersLoading = ref(false)
+  const sellersError = ref('')
   const sellerId = ref('')
   const summary = ref(null)
   const loading = ref(false)
   const error = ref('')
 
+  async function loadSellers() {
+    sellersLoading.value = true
+    sellersError.value = ''
+    try {
+      sellers.value = await fetchSellersFromAPI()
+    } catch (err) {
+      sellersError.value = err.message
+    } finally {
+      sellersLoading.value = false
+    }
+  }
+
   async function fetchSummary() {
     if (!sellerId.value) return
+    const requestedId = sellerId.value
     loading.value = true
     error.value = ''
     summary.value = null
     try {
-      const data = await fetchSummaryFromAPI(sellerId.value)
-      summary.value = data
+      const data = await fetchSummaryFromAPI(requestedId)
+      // Ignore a slow response for a seller the user has already switched away from.
+      if (requestedId === sellerId.value) summary.value = data
     } catch (err) {
-      error.value = err.message || 'Error fetching summary'
+      if (requestedId === sellerId.value) error.value = err.message || 'Error fetching summary'
     } finally {
-      loading.value = false
+      if (requestedId === sellerId.value) loading.value = false
     }
   }
 
-  return { sellers, sellerId, summary, loading, error, fetchSummary }
+  return { sellers, sellersLoading, sellersError, sellerId, summary, loading, error, loadSellers, fetchSummary }
 }

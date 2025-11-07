@@ -1,10 +1,9 @@
-// Utility function to format currency
+const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
+
 export function formatCurrency(amount) {
-    return `$${amount.toFixed(2)}`
-  }
-  
-  // Utility function to format percentages
-  export function formatPercentage(rate) {
-    return `${(rate * 100).toFixed(2)}%`
-  }
-  
+  return currency.format(amount)
+}
+
+export function formatPercentage(rate) {
+  return `${(rate * 100).toFixed(2)}%`
+}
