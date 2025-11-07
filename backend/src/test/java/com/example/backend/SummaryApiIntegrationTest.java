@@ -64,6 +64,14 @@ class SummaryApiIntegrationTest {
     }
 
     @Test
+    void sellersEndpointListsSavedSellers() throws Exception {
+        mvc.perform(get("/api/sellers"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(1))
+                .andExpect(jsonPath("$[0].name").value("Test Seller"));
+    }
+
+    @Test
     void missingSellerIs404() throws Exception {
         mvc.perform(get("/api/seller/{id}/summary", seller.getId() + 100))
                 .andExpect(status().isNotFound());

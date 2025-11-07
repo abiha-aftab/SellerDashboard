@@ -1,10 +1,12 @@
 package com.example.backend.service;
 
+import com.example.backend.dto.SellerOption;
 import com.example.backend.dto.SellerSummary;
 import com.example.backend.model.Sale;
 import com.example.backend.repo.SaleRepository;
 import com.example.backend.repo.SellerRepository;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +31,13 @@ public class SellerService {
         this.saleRepo = saleRepo;
         this.sellerRepo = sellerRepo;
         this.clock = clock;
+    }
+
+    @Transactional(readOnly = true)
+    public List<SellerOption> listSellers() {
+        return sellerRepo.findAll(Sort.by("name")).stream()
+                .map(s -> new SellerOption(s.getId(), s.getName(), s.getRegion()))
+                .toList();
     }
 
     /**

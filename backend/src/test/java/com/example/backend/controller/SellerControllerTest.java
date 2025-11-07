@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.dto.SellerOption;
 import com.example.backend.dto.SellerSummary;
 import com.example.backend.service.SellerNotFoundException;
 import com.example.backend.service.SellerService;
@@ -20,6 +21,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class SellerControllerTest {
     @Autowired MockMvc mvc;
     @MockitoBean SellerService service;
+
+    @Test
+    void listsSellers() throws Exception {
+        when(service.listSellers()).thenReturn(List.of(new SellerOption(3L, "EcoMart", "Asia")));
+
+        mvc.perform(get("/api/sellers"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").value(3))
+                .andExpect(jsonPath("$[0].name").value("EcoMart"))
+                .andExpect(jsonPath("$[0].region").value("Asia"));
+    }
 
     @Test
     void returnsSummaryJson() throws Exception {

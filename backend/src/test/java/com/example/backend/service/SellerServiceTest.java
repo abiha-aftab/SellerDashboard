@@ -7,6 +7,7 @@ import com.example.backend.repo.SaleRepository;
 import com.example.backend.repo.SellerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Sort;
 
 import java.time.Clock;
 import java.time.LocalDate;
@@ -48,6 +49,15 @@ class SellerServiceTest {
                 .isInstanceOf(SellerNotFoundException.class)
                 .hasMessage("Seller 99 not found");
         verifyNoInteractions(saleRepo);
+    }
+
+    @Test
+    void listsSellersSortedByName() {
+        when(sellerRepo.findAll(Sort.by("name"))).thenReturn(List.of(new Seller(2L, "EcoMart", "Asia"), SELLER));
+
+        assertThat(service.listSellers())
+                .extracting(o -> o.name())
+                .containsExactly("EcoMart", "TechZone");
     }
 
     @Test
