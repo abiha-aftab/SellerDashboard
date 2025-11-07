@@ -1,0 +1,37 @@
+project_venv/
+venv/
+.venv/
+env/
+node_modules/
+__pycache__/
+*.py[cod]
+.next/
+dist/
+build/
+target/
+.DS_Store
+*.log
+logs/
+tmp/
+coverage/
+.cache/
+.eslintcache
+
+# Environment files: keep only the documented template
+.env
+.env.*
+!.env.example
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+*.mv.db
+*.trace.db
+
+# Editors
+.idea/
+.vscode/
+
+# Not part of this project
+.github/
